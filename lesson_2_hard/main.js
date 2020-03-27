@@ -14,4 +14,6 @@ let result = (answ ** 3).toString().slice(0, 2);
 
 console.log(result);
 
+//1111
+
 
