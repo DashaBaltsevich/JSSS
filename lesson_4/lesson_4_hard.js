@@ -1,16 +1,17 @@
 'use strict';
 
-const str = function (a) {
-    if (typeof a === 'string') {
+let str = function (a) {
+    if (typeof a === 'number') {
+        console.log('не строка');
         a = a.trim();
+    }
 
-        if (a.length >= 30) {
-            a = a.substr(0, 30) + '...';
-            console.log(a);
-        } else {
-            console.log('не строка');
-        }
+    if (a.length <= 30) {
+        console.log(a);
+    } else if (a.length > 30) {
+        a = a.slice(0, 30) + '...';
+        console.log(a);
     }
 };
 
-str("    ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg    ");
+str('ffffffffffааааааааааааааааааааааааааааааааааааааааа                                 ');
