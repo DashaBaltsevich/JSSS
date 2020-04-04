@@ -13,6 +13,7 @@ week.forEach ((day, index) => {
     } else if (day === 'Суббота' || day === 'Воскресенье') {
         html = html.italics(); 
     }
+    
     let div = document.createElement('div');
     div.innerHTML = html;
     document.body.appendChild(div);
