@@ -6,7 +6,6 @@ let date = new Date();
     let day = date.getDay();
     let day1 = day - 1;
 
-
 week.forEach ((day, index) => {
     let html = week[index];
     
