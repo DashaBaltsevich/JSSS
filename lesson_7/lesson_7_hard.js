@@ -8,7 +8,6 @@ let date = new Date();
 
 week.forEach ((day, index) => {
     let html = week[index];
-    
     if (index === day1) {
         html = html.bold();
     } else if (day === 'Суббота' || day === 'Воскресенье') {
