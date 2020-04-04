@@ -14,6 +14,7 @@ week.forEach ((day, index) => {
         html = html.italics(); 
     }
     
+    
     let div = document.createElement('div');
     div.innerHTML = html;
     document.body.appendChild(div);

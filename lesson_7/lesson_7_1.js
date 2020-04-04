@@ -17,6 +17,7 @@ let money,
     };
 start();
 
+
 let appData = {
     budget: money,
     budgetDay: 0,
