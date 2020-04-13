@@ -147,6 +147,8 @@ let appData = {
     getIncomePeriod: function() {
         let period = document.querySelector('.period-select');
         let titlePeriod = document.querySelector('.period-amount');
+        let incomePeriodValue = document.querySelector('.income_period-value');
+        incomePeriodValue.value = appData.calcPeriod();
         titlePeriod.innerHTML = period.value;
     },
 
