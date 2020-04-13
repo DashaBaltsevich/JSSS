@@ -23,7 +23,7 @@ let startBtn = document.getElementById('start'),
     targetAmount = document.querySelector('.target-amount'),
     period = document.querySelector('.period-select'),
     incomeItem = document.querySelectorAll('.income-items'),
-    input = document.querySelectorAll('input'),
+
     titlePeriod = document.querySelector('.period-amount');
 
 
@@ -59,6 +59,7 @@ let appData = {
         this.getIncome();
         this.getBudget();
 
+        let input = document.querySelectorAll('input');
 
         cancel.style.display = 'block';
         startBtn.style.display = 'none';
@@ -101,7 +102,7 @@ let appData = {
             let itemExpenses = item.querySelector('.expenses-title').value;
             let cashExpenses = item.querySelector('.expenses-amount').value;
             if (itemExpenses !== '' && cashExpenses !== '') {
-                this.expenses[itemExpenses] = cashExpenses;
+                this.expenses[itemExpenses] = +cashExpenses;
             }
         }, this);
            
@@ -125,7 +126,7 @@ let appData = {
             let itemIncome = item.querySelector('.income-title').value;
             let cashIncome = item.querySelector('.income-amount').value;
             if (itemIncome !== '' && cashIncome !== '') {
-                this.income[itemIncome] = cashIncome;
+                this.income[itemIncome] = +cashIncome;
                 
             }
         }, this);
@@ -166,7 +167,7 @@ let appData = {
         for (let key in this.expenses) {
             this.expensesMonth += this.expenses[key];
         }
-        return +this.expensesMonth;
+        return this.expensesMonth;
     },
 
     getBudget: function () {
@@ -211,6 +212,7 @@ let appData = {
     },
 
     reset: function () {
+        let input = document.querySelectorAll('input');
         this.budget = 0;
         this.budgetDay = 0;
         this.budgetMonth = 0;
@@ -246,7 +248,7 @@ let appData = {
     
 };
 
-
+console.log(appData.expensesMonth + typeof appData.expensesMonth);
 startBtn.disabled = true;
 salaryAmount.addEventListener('input', function() {
     startBtn.disabled = salaryAmount.value === '';
@@ -263,19 +265,26 @@ cancel.addEventListener('click', appData.reset);
 
 
 
-let nameNomination = document.querySelectorAll('input[placeholder = "Наименование"');
+let nameNomination = document.querySelectorAll('input[placeholder = "Наименование"]');
         nameNomination.forEach(function (e) {
             e.addEventListener('input', function(e){
                 e.target.value = e.target.value.replace(/([A-Z])|(\d)/gi, '');
             });
         });
 
-let nameSum = document.querySelectorAll('input[placeholder = "Сумма"');
+let nameSum = document.querySelectorAll('input[placeholder = "Сумма"]');
     nameSum.forEach(function (e) {
         e.addEventListener('input', function(e){
             e.target.value = e.target.value.replace(/[^\d]/gi, '');
         });
     });
+
+let nameNom = document.querySelectorAll('input[placeholder = "название"]');
+nameNom.forEach(function (e) {
+    e.addEventListener('input', function(e){
+        e.target.value = e.target.value.replace(/([A-Z])|(\d)/gi, '');
+    });
+});
 
 
 let block = document.querySelectorAll('input[type = text]');
