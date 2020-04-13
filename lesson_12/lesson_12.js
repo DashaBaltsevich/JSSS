@@ -23,7 +23,7 @@ let startBtn = document.getElementById('start'),
     targetAmount = document.querySelector('.target-amount'),
     period = document.querySelector('.period-select'),
     incomeItem = document.querySelectorAll('.income-items'),
-
+    input = document.querySelectorAll('input'),
     titlePeriod = document.querySelector('.period-amount');
 
 
@@ -82,6 +82,9 @@ let appData = {
         additionalIncome.value = this.addIncome.join(', ');
         targetMonth.value = Math.ceil(this.getTargetMonth());
         incomePeriod.value = this.calcPeriod();
+        console.log(this.expensesMonth + typeof this.expensesMonth);
+        console.log(this.incomeMonth + typeof appData.incomeMonth);
+        console.log(this.budgetMonth);
     },
 
 
@@ -167,12 +170,13 @@ let appData = {
         for (let key in this.expenses) {
             this.expensesMonth += this.expenses[key];
         }
-        return this.expensesMonth;
+        return +this.expensesMonth;
     },
 
+    //доход за месяц
     getBudget: function () {
         this.budgetMonth = (this.budget + this.incomeMonth - this.expensesMonth);
-        this.budgetDay = Math.ceil(this.budgetMonth / 30);
+        this.budgetDay = Math.floor(this.budgetMonth / 30);
         return +this.budgetMonth;
     },
 
@@ -248,7 +252,7 @@ let appData = {
     
 };
 
-console.log(appData.expensesMonth + typeof appData.expensesMonth);
+
 startBtn.disabled = true;
 salaryAmount.addEventListener('input', function() {
     startBtn.disabled = salaryAmount.value === '';
