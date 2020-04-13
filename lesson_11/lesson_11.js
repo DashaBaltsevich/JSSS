@@ -216,12 +216,19 @@ period.addEventListener('input', appData.getIncomePeriod);
 
 
 
-let nameNomination = document.querySelectorAll('input[placeholder = "Наименование"');
+let nameNomination = document.querySelectorAll('input[placeholder = "Наименование"]');
         nameNomination.forEach(function (e) {
             e.addEventListener('input', function(e){
                 e.target.value = e.target.value.replace(/([A-Z])|(\d)/gi, '');
             });
         });
+
+let nameNom = document.querySelectorAll('input[placeholder = "название"]');
+nameNom.forEach(function (e) {
+    e.addEventListener('input', function(e){
+        e.target.value = e.target.value.replace(/([A-Z])|(\d)/gi, '');
+    });
+});
 
 let nameSum = document.querySelectorAll('input[placeholder = "Сумма"');
     nameSum.forEach(function (e) {
@@ -230,11 +237,7 @@ let nameSum = document.querySelectorAll('input[placeholder = "Сумма"');
         });
     });
 
-// start.disabled = salaryAmount.value === '';
 
-// for (let key in appData) {
-//     console.log('Наша программа включает в себя данные. ' + key + ':' + appData[key]);
-// }
 
 appData.getInfoDeposit();
 appData.calcPeriod();
