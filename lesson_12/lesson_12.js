@@ -83,7 +83,7 @@ let appData = {
         targetMonth.value = Math.ceil(this.getTargetMonth());
         incomePeriod.value = this.calcPeriod();
         console.log(this.expensesMonth + typeof this.expensesMonth);
-        console.log(this.incomeMonth + typeof appData.incomeMonth);
+        console.log(this.incomeMonth + typeof this.incomeMonth);
         console.log(this.budgetMonth);
     },
 
@@ -300,4 +300,5 @@ let block = document.querySelectorAll('input[type = text]');
 
 appData.getInfoDeposit();
 appData.calcPeriod();
+
 
