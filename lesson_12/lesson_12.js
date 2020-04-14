@@ -82,9 +82,6 @@ let appData = {
         additionalIncome.value = this.addIncome.join(', ');
         targetMonth.value = Math.ceil(this.getTargetMonth());
         incomePeriod.value = this.calcPeriod();
-        console.log(this.expensesMonth + typeof this.expensesMonth);
-        console.log(this.incomeMonth + typeof this.incomeMonth);
-        console.log(this.budgetMonth);
     },
 
 
@@ -107,8 +104,7 @@ let appData = {
             if (itemExpenses !== '' && cashExpenses !== '') {
                 this.expenses[itemExpenses] = +cashExpenses;
             }
-        }, this);
-           
+        }, this);       
 },
     
     addIncomeBlock: function () {
@@ -268,27 +264,34 @@ cancel.addEventListener('click', appData.reset);
 
 
 
-
-let nameNomination = document.querySelectorAll('input[placeholder = "Наименование"]');
-        nameNomination.forEach(function (e) {
-            e.addEventListener('input', function(e){
-                e.target.value = e.target.value.replace(/([A-Z])|(\d)/gi, '');
-            });
-        });
-
-let nameSum = document.querySelectorAll('input[placeholder = "Сумма"]');
-    nameSum.forEach(function (e) {
-        e.addEventListener('input', function(e){
-            e.target.value = e.target.value.replace(/[^\d]/gi, '');
-        });
-    });
-
-let nameNom = document.querySelectorAll('input[placeholder = "название"]');
-nameNom.forEach(function (e) {
-    e.addEventListener('input', function(e){
-        e.target.value = e.target.value.replace(/([A-Z])|(\d)/gi, '');
-    });
+// Регулярки для русских букв
+let inputPlaceName = document.querySelectorAll('input[placeholder="Наименование"]');
+inputPlaceName.forEach(function (item) {
+  item.addEventListener('input', function () {
+    let placeName = item.value,
+      rep = /^[a-z0-9]+$/i;
+    if (rep.test(placeName)) {
+      placeName = placeName.replace(rep, '');
+      item.value = placeName;
+    }
+  });
 });
+
+
+// Регулярки для цифр
+let inputSum = document.querySelectorAll('input[placeholder="Сумма"]');
+inputSum.forEach(function (item) {
+  item.addEventListener('input', function () {
+    let placeSum = item.value,
+      rep = /[-\.;":'a-zA-Zа-яА-Я]/;
+    if (rep.test(placeSum)) {
+      placeSum = placeSum.replace(rep, '');
+      item.value = placeSum;
+    }
+  });
+});
+
+
 
 
 let block = document.querySelectorAll('input[type = text]');
@@ -300,5 +303,6 @@ let block = document.querySelectorAll('input[type = text]');
 
 appData.getInfoDeposit();
 appData.calcPeriod();
+
 
 
