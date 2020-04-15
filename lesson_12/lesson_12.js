@@ -34,7 +34,6 @@ const isNumber = function (n) {
 let expenses1,
     expenses2;
 
-    
 
 let appData = {
     budget: 0,
@@ -95,6 +94,7 @@ let appData = {
         if (expensesItem.length === 3) {
             btnPlusExpensesAdd.style.display = 'none';
         }
+
     },
 
     getExpenses: function () {
@@ -243,6 +243,22 @@ let appData = {
         salaryAmount.value = '';
         period.value = 1;
         titlePeriod.textContent = '1';
+        startBtn.disabled = true;
+
+        expensesItem.forEach((element, i) => {  
+            if (i !== 0) {
+              element.remove();
+            }
+          });
+          btnPlusExpensesAdd.style.display = '';
+
+          incomeItem.forEach((element, i) => {  
+            if (i !== 0) {
+              element.remove();
+            }
+          });
+          btnPlusExpensesAdd.style.display = '';
+        
         }
     
     
@@ -299,6 +315,7 @@ let block = document.querySelectorAll('input[type = text]');
         e.addEventListener('input', function (e){
             startBtn.disable = block.value !== '';
         });
+        
     });
 
 appData.getInfoDeposit();
