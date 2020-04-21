@@ -1,5 +1,5 @@
 'use strict';
-let start = document.getElementById('start'),
+const start = document.getElementById('start'),
     cancel = document.getElementById('cancel'),
     btnPlus = document.getElementsByTagName('button'),
     btnPlusIncomeAdd = document.getElementsByTagName('button')[0],
@@ -106,7 +106,7 @@ class AppData {
             }
         });
 
-        for (let key in this.income) {
+        for (const key in this.income) {
             this.incomeMonth += +this.income[key];
         }
     }
@@ -127,7 +127,7 @@ class AppData {
         incomeItem.forEach(count);
         expensesItem.forEach(count);
 
-        for (let key in this.income) {
+        for (const key in this.income) {
             this.incomeMonth += +this.income[key];
         }
     }
@@ -156,7 +156,7 @@ class AppData {
         titlePeriod.textContent = period.value;
     }
     getExpensesMonth() {
-        for(let key in this.expenses) {
+        for(const key in this.expenses) {
             this.expensesMonth += this.expenses[key];
         }
         return +this.expensesMonth;
