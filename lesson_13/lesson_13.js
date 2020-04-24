@@ -9,7 +9,25 @@ const todoControl = document.querySelector('.todo-control'),
     text = document.querySelector('.text-todo');
 
 
-const todoData = [];
+let todoData = [];
+
+if (localStorage.getItem('localData')) {
+    todoData = JSON.parse(localStorage.getItem('localData'));
+}
+
+const renderItemsForUpdate = function () {
+    if (!todoData.length) {return;}
+    for (let i = 0; i < todoData.lenght; i++) {
+        this.render(todoData[i]);
+    }
+};
+
+const dataUpdateToLocal = function () {
+    localStorage.setItem('localData' , JSON.stringify(todoData));
+    console.log(localStorage.getItem('localData'));
+};
+
+
 const render = function () {
 
     todoList.textContent = '';
@@ -23,6 +41,8 @@ const render = function () {
         li.innerHTML = '<span class="text-todo">' + item.value + '</span>' + '<div class="todo-buttons">' + '<button class="todo-remove"></button>' + '<button class="todo-complete"></button>' + '</div>';
         todoList.append(li);
 
+        
+
         if (item.completed) {
             todoCompleted.append(li);
         } else {
@@ -33,6 +53,7 @@ const render = function () {
         btnTodoComplete.addEventListener('click', function () {
             item.completed = !item.completed;
             render();
+            dataUpdateToLocal();
         });
 
         // Удаление дел на кнопку КОРЗИНА
@@ -40,6 +61,7 @@ const render = function () {
         todoRemove.addEventListener('click', function () {
             todoData.splice(todoData.indexOf(item), 1);
             render();
+            dataUpdateToLocal();
         });
 
     });
@@ -47,10 +69,10 @@ const render = function () {
 
 
 
+
+
 todoControl.addEventListener('submit', function (event) {
-    event.preventDefault();
-    
-    
+    event.preventDefault();    
     // Пустые дела добавляться не должны
     if (headerInput.value.trim() !== '') {
         const newTodo = {
@@ -60,14 +82,12 @@ todoControl.addEventListener('submit', function (event) {
         todoData.push(newTodo);
     }
 
-
-    localStorage.setItem('memory' , JSON.stringify(todoData));
-
     let showText = function () {
         let text = document.querySelector('.text-todo');
-        let array = localStorage.getItem('memory', JSON.stringify(todoData));
+        // let array = localStorage.getItem('memory', JSON.stringify(todoData));
         // let array = JSON.parse(localStorage.getItem('memory'));
-        console.log(array);
+        // console.log(array);
+        dataUpdateToLocal();
     };
 
     render();
@@ -76,6 +96,8 @@ todoControl.addEventListener('submit', function (event) {
 
     showText();
 });
+
+renderItemsForUpdate();
 
 render();
 
