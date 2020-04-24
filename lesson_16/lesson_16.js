@@ -229,6 +229,10 @@ class AppData {
         }
         btnPlusExpensesAdd.style.display = '';
 
+        let depositPercent = document.querySelector('.deposit-percent');
+        depositPercent.style.display = 'none';
+        depositBank.value = '';
+
         Object.assign(this, new this.constructor());
 
         start.disabled = true;
@@ -304,7 +308,7 @@ class AppData {
         });
 
         // Регулярки для цифр
-        const inputSum = document.querySelectorAll('input[placeholder="Сумма"]');
+        const inputSum = document.querySelectorAll('input[placeholder="Сумма"], input[placeholder ="Процент"]');
         inputSum.forEach((item) => {
             item.addEventListener('input', function () {
                 let placeSum = item.value,
