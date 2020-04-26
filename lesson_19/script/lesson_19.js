@@ -46,9 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
             timerSeconds.textContent = timer.seconds;
             } else {
                 clearInterval(idInterval);
-                timerHours.textContent = 0;
-            timerMinutes.textContent = 0;
-            timerSeconds.textContent = 0;
+                timerHours.textContent = oy(0);
+                timerMinutes.textContent = oy(0);
+                timerSeconds.textContent = oy(0);
             }
         }
         let idInterval = setInterval(updateClock, 1000);
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    countTimer('26 april 2020');
+    countTimer('27 april 2020');
 
     //меню
     const toggleMenu = () => {
@@ -105,6 +105,8 @@ const togglePopUp = () => {
     //         }
     // }, 10);
 
+    
+
     function fadeIn(popUp) {
         popUp.style.opacity = 0;
                     let count = 0;
@@ -130,20 +132,10 @@ const togglePopUp = () => {
             }
         });});
 
-        
-
-
 
         popupClose.addEventListener('click', () => {
             popUp.style.display = 'none';
         });
-
-
-    // const popUpWindow = function () {
-    //     popUp.style.display = 'block';
-    //     popUp.style.opacity = '1';
-    //     popUp.style.visibility = 'visible';
-    // };
 
 };
 
