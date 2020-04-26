@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
             timerSeconds.textContent = timer.seconds;
             } else {
                 clearInterval(idInterval);
-                timerHours.textContent = 0;
-            timerMinutes.textContent = 0;
-            timerSeconds.textContent = 0;
+                timerHours.textContent = oy(0);
+            timerMinutes.textContent = oy(0);
+            timerSeconds.textContent = oy(0);
             }
         }
         let idInterval = setInterval(updateClock, 1000);
