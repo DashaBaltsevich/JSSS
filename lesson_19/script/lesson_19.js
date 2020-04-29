@@ -70,7 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const btnMenu = document.querySelector('.menu'),
             menu = document.querySelector('menu'),
             closebtn = document.querySelector('.close-btn'),
-            menuItems = menu.querySelectorAll('ul > li');
+            menuItems = menu.querySelectorAll('ul > li'),
+            next = document.querySelector('a[href="#service-block"');
+
 
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
@@ -79,7 +81,31 @@ document.addEventListener('DOMContentLoaded', function () {
         btnMenu.addEventListener('click', handlerMenu);
         closebtn.addEventListener('click', handlerMenu);
 
-        menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+        
+
+        menuItems.forEach((elem) => elem.addEventListener('click', (event) => {
+            //плавная прокрутка
+
+            let anch = elem.querySelector('a');
+            event.preventDefault();
+            const block1 = anch.getAttribute('href').substr(1);
+
+            document.getElementById(block1).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            handlerMenu();
+        }));
+        
+        //плавный переход на другой слайд нажимая на кнопку
+
+        next.addEventListener('click', (e) => {
+            event.preventDefault();
+            next.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
 
     };
 
