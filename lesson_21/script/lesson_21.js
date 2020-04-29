@@ -272,9 +272,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         nextSlide(dot, currentSlide, 'dot-active');
                     };
 
-                    const startSlide = (time) => {
-                        setInterval(autoPlaySlide, time);
-                        interval = setInterval(autoPlaySlide, time);
+                    const startSlide = () => {
+                        interval = setInterval(autoPlaySlide, 1500);
                     };
 
                     const stopSlide = () => {
@@ -328,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
 
-                    startSlide(3000);
+                    startSlide();
                 };
                 slider();
 
