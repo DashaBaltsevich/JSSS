@@ -96,12 +96,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 // menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
 
                 body.addEventListener('click', (event) => {
-                    let target = event.target;
-        
-                    if (target.closest('.menu')) {
-                        menu.classList.toggle('active-menu');
-                    } else if ( target !== menu) {
-                        menu.classList.toggle('active-menu');
+                    const target = event.target;
+                    if(target.closest('.menu')) {
+                        menu.style.transform = `translate(0)`;
+                        console.log(target);
+                    } else if (target !== menu) {
+                        menu.style.transform = `translate(-100%)`;
                     }
                 });
 
