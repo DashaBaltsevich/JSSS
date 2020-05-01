@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
             body = document.querySelector('body'),
             activeMenu = document.querySelector('active-menu'),
             next = document.querySelector('a[href="#service-block"');
-        console.log(a);
 
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
@@ -104,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const target = event.target;
             if (target.closest('.menu')) {
                 menu.style.transform = `translate(0)`;
-                console.log(target);
             } else if (target !== menu) {
                 menu.style.transform = `translate(-100%)`;
             }
@@ -143,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const popUp = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn');
         let count = 0;
-        console.log(screen.width);
 
 
 
@@ -161,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }, 10);
         }
-        console.log(document.documentElement.clientWidth);
 
 
 
@@ -218,7 +214,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let target = event.target;
             target = target.closest('.service-header-tab');
 
-            console.log(target);
             if (target) {
                 tab.forEach((item, i) => {
                     if (item === target) {
@@ -258,7 +253,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         let dot = ul.querySelectorAll('.dot');
-        console.log(dot);
 
 
 
