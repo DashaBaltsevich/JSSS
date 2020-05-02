@@ -376,15 +376,10 @@ document.addEventListener('DOMContentLoaded', function () {
     team();
 
 
+
     //калькулятор ввод только цифр
     const calc = (price = 100) => {
-        let calcItem = document.querySelectorAll('.calc-item');
-        calcItem.forEach(function (e) {
-            if (e !== calcItem[0]){
-            e.addEventListener('input', function (e) {
-                e.target.value = e.target.value.replace(/[^\d]/gi, '');
-            });}
-        });
+        
 
         const calcBlock = document.querySelector('.calc-block'),
             calcType = document.querySelector('.calc-type'),
@@ -395,8 +390,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const countSum = () => {
             let total = 0,
-            countValue = 1,
-            dayValue = 1;
+                countValue = 1,
+                dayValue = 1;
 
             const typeValue = calcType.options[calcType.selectedIndex].value;
 
@@ -412,8 +407,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 dayValue = dayValue * 3 / 2;
             }
 
-            if(typeValue && squareValue) {
-                total = Math.floor (price * typeValue * squareValue * countValue * dayValue);
+            if (typeValue && squareValue) {
+                total = Math.floor(price * typeValue * squareValue * countValue * dayValue);
             }
 
             totalValue.textContent = total;
@@ -427,7 +422,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // if (target === calcType || target === calcSquare || target === calcDay || target === calcCount)
 
-            if( target.matches('select') || target.matches('input')) {
+            if (target.matches('select') || target.matches('input')) {
                 countSum();
             }
         });
@@ -436,12 +431,120 @@ document.addEventListener('DOMContentLoaded', function () {
 
     calc(100);
 
+    const valid = () => {
+        const calcItem = document.querySelectorAll('.calc-item');
+        const phone = document.querySelectorAll('[name="user_phone"]');
+        const text = document.querySelectorAll('[placeholder="Ваше имя"], [placeholder="Ваше сообщение"]');
+        console.log(text);
+        calcItem.forEach(function (e) {
+            if (e !== calcItem[0]) {
+                e.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/[^\d]/gi, '');
+                });
+            }
+        });
+
+        //ввод цифр и +
+
+        phone.forEach(function (e) {
+            if (e !== calcItem[0]) {
+                e.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/[^\+\d]/gi, '');
+                });
+            }
+        });
+
+        //ввод кириллицы и пробелов
+        text.forEach(function (e) {
+            if (e !== calcItem[0]) {
+                e.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/[^а-яё\s]$/i,'');
+                });
+            }
+        });         
+
+    };
+    valid();
+
+    //send-ajax-form
+
+    const form1 = document.getElementById('form1'),
+        form2 = document.getElementById('form2'),
+        form3 = document.getElementById('form3');
+
+    const sendForm = (form) => {
+        const errorMessage = 'Что-то пошло не так',
+            loadMessage = 'Загрузка...',
+            successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
 
 
 
+        const statusMessage = document.createElement('div');
+        statusMessage.style.cssText = 'font-size: 2rem;';
+
+        form.addEventListener('submit', (event) => {
+            //чтобы страница не перезагружалась
+            event.preventDefault();
+            form.appendChild(statusMessage);
+            statusMessage.textContent = loadMessage;
+            const formData = new FormData(form);
+
+            let body = {};
+
+            // for (let val of formData.entries()) {
+            //     body[val[0]] = val[1];
+            // }
+
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+
+            postData(body, () => {
+                statusMessage.textContent = successMessage;
+            }, (error) => {
+                statusMessage.textContent = errorMessage;
+                console.error(error);
+            });
 
 
+        });
+
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+
+            request.addEventListener('readystatechange', () => {
+
+                if (request.readyState !== 4) {
+                    return;
+                }
+                if (request.status === 200) {
+                    outputData();
+
+                } else {
+                    errorData(request.status);
+
+                }
+            });
+
+
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(JSON.stringify(body));
+
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach((elem) => {
+                elem.value = '';
+            });
+        };
+
+
+    };
+    sendForm(form1);
+    sendForm(form2);
+    sendForm(form3);
+
+    
 
 
 });
