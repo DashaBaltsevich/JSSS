@@ -70,6 +70,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     countTimer('27 april 2020');
 
+
+    const valid = () => {
+        const calcItem = document.querySelectorAll('.calc-item');
+        const phone = document.querySelectorAll('[name="user_phone"]');
+        const text = document.querySelectorAll('[placeholder="Ваше имя"], [placeholder="Ваше сообщение"]');
+        console.log(text);
+        calcItem.forEach(function (e) {
+            if (e !== calcItem[0]) {
+                e.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/[^\d]/gi, '');
+                });
+            }
+        });
+
+        //ввод цифр и +
+
+        phone.forEach(function (e) {
+            if (e !== calcItem[0]) {
+                e.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/[^\+\d]/gi, '');
+                });
+            }
+        });
+
+        //ввод кириллицы и пробелов
+        text.forEach(function (e) {
+            if (e !== calcItem[0]) {
+                e.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/[^а-яё\s]$/i,'');
+                });
+            }
+        });         
+
+    };
+    valid();
+
     //меню
     const toggleMenu = () => {
         const btnMenu = document.querySelector('.menu'),
@@ -431,40 +467,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     calc(100);
 
-    const valid = () => {
-        const calcItem = document.querySelectorAll('.calc-item');
-        const phone = document.querySelectorAll('[name="user_phone"]');
-        const text = document.querySelectorAll('[placeholder="Ваше имя"], [placeholder="Ваше сообщение"]');
-        console.log(text);
-        calcItem.forEach(function (e) {
-            if (e !== calcItem[0]) {
-                e.addEventListener('input', function (e) {
-                    e.target.value = e.target.value.replace(/[^\d]/gi, '');
-                });
-            }
-        });
 
-        //ввод цифр и +
-
-        phone.forEach(function (e) {
-            if (e !== calcItem[0]) {
-                e.addEventListener('input', function (e) {
-                    e.target.value = e.target.value.replace(/[^\+\d]/gi, '');
-                });
-            }
-        });
-
-        //ввод кириллицы и пробелов
-        text.forEach(function (e) {
-            if (e !== calcItem[0]) {
-                e.addEventListener('input', function (e) {
-                    e.target.value = e.target.value.replace(/[^а-яё\s]$/i,'');
-                });
-            }
-        });         
-
-    };
-    valid();
 
     //send-ajax-form
 
@@ -500,9 +503,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 body[key] = val;
             });
 
-            postData(body, () => {
+            postData(body).then(() => {
                 statusMessage.textContent = successMessage;
-            }, (error) => {
+            }).catch(error => {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
             });
@@ -510,33 +513,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
+        const postData = (body) => {
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
 
             request.addEventListener('readystatechange', () => {
-
                 if (request.readyState !== 4) {
                     return;
                 }
                 if (request.status === 200) {
-                    outputData();
-
+                    resolve();
                 } else {
-                    errorData(request.status);
-
+                    reject(request.status);
                 }
             });
-
-
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
+            
             request.send(JSON.stringify(body));
+
+            });
+
+        };
+            
 
             const inputs = form.querySelectorAll('input');
             inputs.forEach((elem) => {
                 elem.value = '';
             });
-        };
+        
 
 
     };
