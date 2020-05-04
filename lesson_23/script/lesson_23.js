@@ -388,9 +388,11 @@ document.addEventListener('DOMContentLoaded', function () {
         calcItem.forEach(function (e) {
             if (e !== calcItem[0]){
             e.addEventListener('input', function (e) {
-                e.target.value = e.target.value.replace(/[^\d]/gi, '');
+                e.target.value = e.target.value.replace(/\D/g, '');
             });}
         });
+
+
 
         const calcBlock = document.querySelector('.calc-block'),
             calcType = document.querySelector('.calc-type'),
