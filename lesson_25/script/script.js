@@ -432,10 +432,22 @@ document.addEventListener('DOMContentLoaded', function () {
     calc(100);
 
     const valid = () => {
-        const calcItem = document.querySelectorAll('.calc-item');
-        const phone = document.querySelectorAll('[name="user_phone"]');
-        const text = document.querySelectorAll('[placeholder="Ваше имя"], [placeholder="Ваше сообщение"]');
-        console.log(text);
+        const calcItem = document.querySelectorAll('.calc-item'),
+         phone = document.querySelectorAll('[name="user_phone"]'),
+        text = document.querySelectorAll('[placeholder="Ваше имя"], [placeholder="Ваше сообщение"]'),
+            mail = document.querySelectorAll('[name="user_email"]');
+
+            //запрет кириллицы
+            mail.forEach(function (e) {
+                if (e !== calcItem[0]) {
+                    e.addEventListener('input', function (e) {
+                        e.target.value = e.target.value.replace(/[а-яА-ЯёЁ]/g, '');
+                    });
+                }
+
+                // /[а-яА-ЯёЁ]/g
+            }); 
+
         calcItem.forEach(function (e) {
             if (e !== calcItem[0]) {
                 e.addEventListener('input', function (e) {
@@ -477,6 +489,8 @@ document.addEventListener('DOMContentLoaded', function () {
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
+        
+
 
 
 
@@ -488,7 +502,9 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             form.appendChild(statusMessage);
             statusMessage.textContent = loadMessage;
+            statusMessage.style.color = "#fff";
             const formData = new FormData(form);
+
 
             let body = {};
 
@@ -501,9 +517,15 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             postData(body, () => {
-                statusMessage.textContent = successMessage;
+                    statusMessage.textContent = successMessage;
+                statusMessage.style.color = "#fff";
+                setTimeout(() => {
+                    statusMessage.textContent = '';
+                }, 5000);
+                    
             }, (error) => {
                 statusMessage.textContent = errorMessage;
+                errorMessage.style.color = "#fff";
                 console.error(error);
             });
 
