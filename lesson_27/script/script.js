@@ -74,8 +74,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const valid = () => {
         const calcItem = document.querySelectorAll('.calc-item');
         const phone = document.querySelectorAll('[name="user_phone"]');
-        const text = document.querySelectorAll('[placeholder="Ваше имя"], [placeholder="Ваше сообщение"]');
-        console.log(text);
+        const text = document.querySelectorAll('[placeholder="Ваше имя"], [placeholder="Ваше сообщение"]'),
+        mail = document.querySelectorAll('[name="user_email"]');
+
+        //запрет кириллицы
+        mail.forEach(function (e) {
+            if (e !== calcItem[0]) {
+                e.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/[а-яА-ЯёЁ]/g, '');
+                });
+            }
+
+            // /[а-яА-ЯёЁ]/g
+        }); 
         calcItem.forEach(function (e) {
             if (e !== calcItem[0]) {
                 e.addEventListener('input', function (e) {
@@ -480,9 +491,6 @@ document.addEventListener('DOMContentLoaded', function () {
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-
-
-
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem;';
 
@@ -494,17 +502,21 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData(form);
 
             let body = {};
-
-            // for (let val of formData.entries()) {
-            //     body[val[0]] = val[1];
-            // }
-
             formData.forEach((val, key) => {
                 body[key] = val;
             });
 
-            postData(body).then(() => {
+
+            postData(body).then((response) => {
+                console.log(response);
                 statusMessage.textContent = successMessage;
+                statusMessage.style.color = "#fff";
+                setTimeout(() => {
+                    statusMessage.textContent = '';
+                }, 5000);
+                if (response.status !== 200) {
+                    throw new Error ('status network not 200');
+                }
             }).catch(error => {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
@@ -514,28 +526,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         const postData = (body) => {
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
 
-            request.addEventListener('readystatechange', () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    resolve();
-                } else {
-                    reject(request.status);
-                }
-            });
-            
-            request.send(JSON.stringify(body));
-
+            return fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             });
 
         };
-            
 
             const inputs = form.querySelectorAll('input');
             inputs.forEach((elem) => {
