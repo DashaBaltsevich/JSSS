@@ -3,7 +3,7 @@ module.exports = {
     entry: {
         main: './src/index.js'},
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, './script/dist'),
         filename: '[name].js',
         publicPath: '/dist'
     }
