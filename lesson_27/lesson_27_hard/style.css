@@ -1,13 +1,26 @@
+#input {
+    border: 2px solid red;
+    height: 80px;
+    width: 200px;
+}
+
+#output {
+    border: 2px solid rgb(134, 235, 3);
+    height: 80px;
+    width: 200px;
+    margin-left: 60px;
+}
+
 #wrap {
-    margin: auto;
-    width:700px;
-    }
+    display: flex;
+}
 
-    #ruText {
-    float:left;
-    }
+#text-1 {
+    display: flex;
+}
 
-    
-    #enText {
-    margin-left:350px;
-    }
+button {
+    margin-left: 50px;
+    margin-top: 30px;
+    height: 30px;
+}

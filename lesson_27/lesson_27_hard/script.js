@@ -5,7 +5,7 @@
     
         const input = document.querySelector('input'),
             button = document.querySelector('button'),
-            output = document.querySelector('output'),
+            output = document.getElementById('output'),
             first = document.getElementById('1'),
             second = document.getElementById('2');
         let language = 'en-ru';
