@@ -26,6 +26,10 @@ const sendForm = (form) => {
             setTimeout(() => {
                 statusMessage.textContent = '';
             }, 5000);
+            const inputs = form.querySelectorAll('input');
+        inputs.forEach((elem) => {
+            elem.value = '';
+        });
             if (response.status !== 200) {
                 throw new Error ('status network not 200');
             }
@@ -49,10 +53,7 @@ const sendForm = (form) => {
 
     };
 
-        const inputs = form.querySelectorAll('input');
-        inputs.forEach((elem) => {
-            elem.value = '';
-        });
+        
     
 
 
